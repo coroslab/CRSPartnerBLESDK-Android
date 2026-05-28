@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PartnerDemo</string>
+    <string name="title">CRSPartnerBLESDK 调试台</string>
+    <string name="section_config">CONFIG</string>
+    <string name="section_actions">COMMANDS</string>
+    <string name="section_console">CONSOLE</string>
+    <string name="client_id_hint">Client ID</string>
+    <string name="partner_user_id_hint">合作方用户 ID</string>
+    <string name="environment_test">测试</string>
+    <string name="environment_production">生产</string>
+    <string name="initialize">初始化</string>
+    <string name="authorize">授权</string>
+    <string name="list_devices">设备列表</string>
+    <string name="start_hr">开始心率</string>
+    <string name="stop_hr">停止心率</string>
+    <string name="add_connection_callback">监听连接</string>
+    <string name="remove_connection_callback">移除监听</string>
+    <string name="revoke">撤销</string>
+    <string name="clear_console">清空</string>
+    <string name="status_empty">[status] 未初始化</string>
+    <string name="devices_empty">[devices] empty</string>
+    <string name="samples_empty">[heart_rate] empty</string>
+    <string name="status_authorizing">[status] 正在授权...</string>
+    <string name="status_authorize_success">[status] 授权成功，devices=%1$d</string>
+    <string name="status_handling_callback">[status] 正在处理回调...</string>
+    <string name="status_handle_callback_success">[status] 回调处理成功，devices=%1$d</string>
+    <string name="status_listing_devices">[status] 正在读取设备...</string>
+    <string name="status_list_devices_success">[status] 设备读取成功，devices=%1$d</string>
+    <string name="status_adding_connection_callback">[status] 正在注册连接状态监听...</string>
+    <string name="status_connection_callback_added">[status] 连接状态监听已注册</string>
+    <string name="status_removing_connection_callback">[status] 正在移除连接状态监听...</string>
+    <string name="status_connection_callback_removed">[status] 连接状态监听已移除</string>
+    <string name="status_starting_heart_rate">[status] 正在开启心率广播...</string>
+    <string name="status_heart_rate_started">[status] 心率广播已开启，sportStartTimeInSec=%1$d</string>
+    <string name="status_heart_rate_not_started">[error] 心率广播未开启，无法停止</string>
+    <string name="status_heart_rate_stopped">[status] 心率广播已停止</string>
+    <string name="status_revoking">[status] 正在撤销授权...</string>
+    <string name="status_revoke_success">[status] 授权已撤销</string>
+    <string name="status_client_id_required">[error] Client ID 不能为空</string>
+    <string name="status_partner_user_id_required">[error] 合作方用户 ID 不能为空</string>
+    <string name="status_sdk_not_initialized">[error] 请先点击初始化</string>
+    <string name="status_initialized">[status] 初始化完成，environment=%1$s</string>
+    <string name="console_initialize_call">[CRSPartnerBLESDK.initialize]\n  clientId=%1$s, partnerUserId=%2$s, environment=%3$s</string>
+    <string name="console_authorize_call">[CRSPartnerBLESDK.authorize]\n  scope=%1$s</string>
+    <string name="console_authorize_result">[result]\n  devices=%1$d</string>
+    <string name="console_handle_open_url_call">[CRSPartnerBLESDK.handleOpenURL]\n  url=%1$s</string>
+    <string name="console_handle_open_url_payload">[callback]\n  result=%1$s, state=%2$s, errorCode=%3$s, errorMessage=%4$s</string>
+    <string name="console_handle_open_url_result">[result]\n  devices=%1$d</string>
+    <string name="console_list_devices_call">[CRSPartnerBLESDK.listAuthorizedDevices]</string>
+    <string name="console_list_devices_result">[result]\n  devices=%1$d</string>
+    <string name="console_add_connection_callback_call">[CRSPartnerBLESDK.addDeviceConnectionStateCallback]</string>
+    <string name="console_remove_connection_callback_call">[CRSPartnerBLESDK.removeDeviceConnectionStateCallback]</string>
+    <string name="console_device_connection_state_change">[onDeviceConnectionStateChange]\n  deviceName=%1$s, deviceModel=%2$s, connectionState=%3$s</string>
+    <string name="console_start_heart_rate_call">[CRSPartnerBLESDK.startHeartBroadcast]\n  sportStartTimeInSec=%1$d</string>
+    <string name="console_heart_rate_sample">[onChange] 心率=%1$d, 时间戳=%2$d, 开始时间=%3$d</string>
+    <string name="console_stop_heart_rate_call">[HeartBroadcastResult.stop]</string>
+    <string name="console_revoke_call">[CRSPartnerBLESDK.revoke]</string>
+    <string name="console_revoke_done">[result]\n  revoked=true</string>
+    <string name="environment_name_test">测试</string>
+    <string name="environment_name_production">生产</string>
+    <string name="devices_title">[devices]</string>
+    <string name="error_sdk">[error] code=%1$d, serverCode=%2$s, traceId=%3$s, message=%4$s</string>
+    <string name="error_unknown">[error] %1$s</string>
+</resources>

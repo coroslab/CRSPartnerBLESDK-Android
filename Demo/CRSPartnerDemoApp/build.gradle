@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    namespace = "com.coros.partner.demoapp"
+    compileSdkVersion = rootProject.compileSdkV
+
+    defaultConfig {
+        applicationId "com.coros.partner.app"
+        minSdkVersion rootProject.minSdkV
+        targetSdkVersion rootProject.targetSdkV
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('partner_ble_demo.keystore')
+            storePassword 'partnerble'
+            keyAlias 'partner_ble_demo'
+            keyPassword 'partnerble'
+        }
+        debug {
+            storeFile file('partner_ble_demo.keystore')
+            storePassword 'partnerble'
+            keyAlias 'partner_ble_demo'
+            keyPassword 'partnerble'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility rootProject.javaV
+        targetCompatibility rootProject.javaV
+    }
+
+    kotlinOptions {
+        jvmTarget = rootProject.kV
+    }
+}
+
+dependencies {
+    implementation "com.coros.partner:crs-partner-ble-sdk:$rootProject.crsPartnerBleSdkVersion"
+    implementation "androidx.activity:activity-ktx:1.12.3"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleV"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+}

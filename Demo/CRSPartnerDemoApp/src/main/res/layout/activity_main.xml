@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#020402"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="@string/title"
+        android:textColor="#7CFF9B"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="monospace"
+        android:text="@string/section_config"
+        android:textColor="#6D8C74"
+        android:textSize="11sp" />
+
+    <EditText
+        android:id="@+id/etClientId"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/console_field_bg"
+        android:fontFamily="monospace"
+        android:hint="@string/client_id_hint"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="#E4FFE8"
+        android:textColorHint="#536E59"
+        android:textCursorDrawable="@null"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etPartnerUserId"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/console_field_bg"
+        android:fontFamily="monospace"
+        android:hint="@string/partner_user_id_hint"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="#E4FFE8"
+        android:textColorHint="#536E59"
+        android:textCursorDrawable="@null"
+        android:textSize="14sp" />
+
+    <RadioGroup
+        android:id="@+id/rgEnvironment"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbEnvironmentTest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:buttonTint="#7CFF9B"
+            android:checked="true"
+            android:fontFamily="monospace"
+            android:text="@string/environment_test"
+            android:textColor="#E4FFE8"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:id="@+id/rbEnvironmentProduction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:buttonTint="#7CFF9B"
+            android:fontFamily="monospace"
+            android:text="@string/environment_production"
+            android:textColor="#E4FFE8"
+            android:textSize="13sp" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="monospace"
+        android:text="@string/section_actions"
+        android:textColor="#6D8C74"
+        android:textSize="11sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnInitialize"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/initialize"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnAuthorize"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/authorize"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnRevoke"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/revoke"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnListDevices"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/list_devices"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnStartHr"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/start_hr"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnStopHr"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/stop_hr"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAddConnectionCallback"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/add_connection_callback"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btnRemoveConnectionCallback"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/remove_connection_callback"
+            android:textColor="#7CFF9B"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="monospace"
+            android:text="@string/section_console"
+            android:textColor="#6D8C74"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnClearConsole"
+            android:layout_width="72dp"
+            android:layout_height="30dp"
+            android:background="@drawable/console_button_bg"
+            android:fontFamily="monospace"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="0dp"
+            android:text="@string/clear_console"
+            android:textColor="#7CFF9B"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:background="@drawable/console_panel_bg"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ScrollView
+            android:id="@+id/consoleScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="ifContentScrolls">
+
+            <TextView
+                android:id="@+id/tvConsole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/status_empty"
+                android:textColor="#C8FFD1"
+                android:textIsSelectable="true"
+                android:textSize="12sp" />
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>
