@@ -59,7 +59,7 @@ Add the SDK AAR dependency in your app module:
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.0"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
 }
 ```
 

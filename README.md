@@ -32,7 +32,7 @@ Add the SDK dependency in your app module:
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.0"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
 }
 ```
 
@@ -101,4 +101,4 @@ The demo uses the sample package `com.coros.partner.app` and callback URI `crspa
 
 ## Version
 
-Current version: `0.1.0`.
+Current version: `0.1.1`.

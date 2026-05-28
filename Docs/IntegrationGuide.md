@@ -59,7 +59,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.0"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
 }
 ```
 

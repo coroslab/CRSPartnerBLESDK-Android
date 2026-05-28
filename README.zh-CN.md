@@ -32,7 +32,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.0"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
 }
 ```
 
@@ -101,4 +101,4 @@ Demo 使用示例包名 `com.coros.partner.app` 和回调 URI `crspartnerbledemo
 
 ## 版本
 
-当前版本：`0.1.0`。
+当前版本：`0.1.1`。

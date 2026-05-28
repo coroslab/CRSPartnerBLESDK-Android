@@ -3,14 +3,16 @@ plugins {
     id 'kotlin-android'
 }
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 android {
     namespace = "com.coros.partner.demoapp"
-    compileSdkVersion = rootProject.compileSdkV
+    compileSdk = 36
 
     defaultConfig {
         applicationId "com.coros.partner.app"
-        minSdkVersion rootProject.minSdkV
-        targetSdkVersion rootProject.targetSdkV
+        minSdk = 24
+        targetSdk = 35
         versionCode 1
         versionName "1.0"
     }
@@ -31,22 +33,24 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        viewBinding = true
     }
 
     compileOptions {
-        sourceCompatibility rootProject.javaV
-        targetCompatibility rootProject.javaV
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+}
 
-    kotlinOptions {
-        jvmTarget = rootProject.kV
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:$rootProject.crsPartnerBleSdkVersion"
-    implementation "androidx.activity:activity-ktx:1.12.3"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleV"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
+    implementation "androidx.activity:activity-ktx:1.13.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.10.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0"
 }
