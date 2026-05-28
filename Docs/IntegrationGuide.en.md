@@ -252,20 +252,46 @@ try {
 }
 ```
 
-Common handling:
+Complete error codes:
 
-| Code | Meaning | Suggested handling |
-| --- | --- | --- |
-| `SDK_ERROR_CODE_INVALID_ARGUMENT` | Invalid SDK input. | Check `clientId`, `partnerUserId`, callback URL, or `sportStartTimeInSec`. |
-| `SDK_ERROR_CODE_NOT_INITIALIZED` | SDK has not been initialized. | Call `initialize()` first. |
-| `SDK_ERROR_CODE_NOT_AUTHORIZED` | Authorization is missing or unavailable. | Run authorization again. |
-| `SDK_ERROR_CODE_DEVICE_NOT_READY` | Authorized device is not ready. | Call `listAuthorizedDevices()` and ask the user to check COROS App/device connection. |
-| `SDK_ERROR_CODE_BLUETOOTH_POWERED_OFF` | System Bluetooth is off. | Ask the user to enable Bluetooth. |
-| `SDK_ERROR_CODE_BLUETOOTH_UNAUTHORIZED` | Bluetooth permission is unavailable. | Ask the user to grant Bluetooth permission. |
-| `SDK_ERROR_CODE_REBIND_REQUIRED` | COROS App BLE bridge or device binding needs recovery. | Ask the user to open COROS App and check device status. |
-| `SDK_ERROR_CODE_COMMAND_CHANNEL_AUTH_FAILED` | Command channel authentication failed. | Re-authorize and retry. |
-| `SDK_ERROR_CODE_WATCH_USER_EXIT_LOCKED` | The watch exited the current session. | Use a new `sportStartTimeInSec`. |
-| `SDK_ERROR_CODE_SERVER_*` | Server-side error or invalid partner configuration. | Check partner configuration, retry if appropriate, and provide `traceId` to COROS support. |
+| Value | Code | Meaning | Suggested handling |
+| --- | --- | --- | --- |
+| 0 | `SDK_ERROR_CODE_OK` | Success. | No action required. |
+| 1 | `SDK_ERROR_CODE_INVALID_ARGUMENT` | Invalid SDK input, such as empty `clientId`, invalid callback URL, or invalid `sportStartTimeInSec`. | Check the call parameters. |
+| 2 | `SDK_ERROR_CODE_NOT_AUTHORIZED` | Authorization is missing, locally unavailable, or expired. | Call `authorize()` again and complete authorization. |
+| 3 | `SDK_ERROR_CODE_DEVICE_NOT_READY` | Authorized device is not ready, such as an unsupported authorized-device count for heart rate broadcast. | Call `listAuthorizedDevices()` and ask the user to check COROS App/device connection. |
+| 4 | `SDK_ERROR_CODE_COMMAND_TIMEOUT` | Command execution timed out. | Retry later and check COROS App/device connection. |
+| 5 | `SDK_ERROR_CODE_ACK_TIMEOUT` | Timed out while waiting for watch ACK. | Retry later and check whether the device remains connected. |
+| 6 | `SDK_ERROR_CODE_STREAM_INTERRUPTED` | BLE bridge, Binder, or heart rate stream was interrupted. | Check COROS App/device connection and restart heart rate broadcast if needed. |
+| 7 | `SDK_ERROR_CODE_REBIND_REQUIRED` | COROS App BLE bridge is unavailable, or the device needs COROS App to recover connection/rebinding. | Ask the user to open COROS App and check login, binding, and device connection state. |
+| 8 | `SDK_ERROR_CODE_PERMISSION_REVOKED` | Local authorization cache is unavailable, possibly because system keys or permission state changed. | Clear authorization state and authorize again. |
+| 9 | `SDK_ERROR_CODE_INVALID_PAYLOAD` | Local payload encode/decode failed, or COROS App returned an unexpected payload format. | Record logs and `traceId`, then contact COROS support. |
+| 10 | `SDK_ERROR_CODE_ENVIRONMENT_MISMATCH` | Current SDK environment does not match the deeplink or authorization payload environment. | Confirm that `Environment` matches the partner server configuration. |
+| 11 | `SDK_ERROR_CODE_BLUETOOTH_POWERED_OFF` | System Bluetooth is off. | Ask the user to enable Bluetooth. |
+| 12 | `SDK_ERROR_CODE_BLUETOOTH_UNAUTHORIZED` | System Bluetooth permission is not granted. | Ask the user to grant Bluetooth permission. |
+| 53 | `SDK_ERROR_CODE_WATCH_USER_EXIT_LOCKED` | The watch exited the current session, and the same `sportStartTimeInSec` cannot be started again. | Generate a new sport start time and start heart rate broadcast again. |
+| 54 | `SDK_ERROR_CODE_COMMAND_CHANNEL_AUTH_FAILED` | Command channel authentication failed. | Re-authorize and retry. |
+| 999 | `SDK_ERROR_CODE_INTERNAL_ERROR` | Unknown local SDK error. | Collect logs, `traceId`, and reproduction steps, then contact COROS support. |
+| 1000 | `SDK_ERROR_CODE_NOT_INITIALIZED` | `initialize()` has not been called. | Initialize the SDK first. |
+| 1001 | `SDK_ERROR_CODE_SERVER_ERROR` | Server internal error. | Retry later. Contact COROS if the issue persists. |
+| 1019 | `SDK_ERROR_CODE_SERVER_LOGIN_INVALID` | COROS App login state is invalid or missing. | Ask the user to sign in to COROS App and retry. |
+| 1031 | `SDK_ERROR_CODE_SERVER_INVALID_PARAMETER` | Server rejected the request parameters or enum values. | Check partner configuration and request parameters. |
+| 1037 | `SDK_ERROR_CODE_SERVER_NO_DATA` | Server has no available data. | Check authorization, device state, and partner configuration. |
+| 1042 | `SDK_ERROR_CODE_SERVER_RATE_LIMITED` | Server rate limit was reached. | Reduce request frequency and retry. |
+| 1047 | `SDK_ERROR_CODE_SERVER_INVALID_CONTENT` | Server returned invalid or incomplete content. | Re-authorize or contact COROS support. |
+| 5002 | `SDK_ERROR_CODE_SERVER_INVALID_CLIENT` | `clientId` is invalid or not registered. | Confirm the COROS-assigned `clientId` and server registration. |
+| 5004 | `SDK_ERROR_CODE_SERVER_INVALID_SCOPE` | Requested scope is invalid or not enabled for this partner. | Confirm partner scope configuration. |
+| 5026 | `SDK_ERROR_CODE_SERVER_EXPIRED` | Request, signature, or authorization data has expired. | Start authorization or the request again. |
+| 5030 | `SDK_ERROR_CODE_SERVER_INVALID_SIGNATURE` | Signature verification failed, including partner signature or COROS App signature mismatch. | Check package name, signing certificate, and server registration. |
+| 5031 | `SDK_ERROR_CODE_SERVER_KEY_UNAVAILABLE` | Server key is unavailable. | Retry later or contact COROS support. |
+| 5032 | `SDK_ERROR_CODE_SERVER_EXPIRED_KEY` | Server key has expired. | Re-authorize. Contact COROS if the issue persists. |
+| 5033 | `SDK_ERROR_CODE_SERVER_UNAUTHORIZED_DEVICE` | Device is not authorized for the current partner/user. | Re-authorize and confirm the selected device. |
+| 5034 | `SDK_ERROR_CODE_SERVER_DEVICE_DISCONNECTED` | Server considers the device disconnected. | Ask the user to check device connection in COROS App. |
+| 5035 | `SDK_ERROR_CODE_SERVER_INVALID_AUTHORIZED_DEVICES` | Server returned an invalid authorized-device list. | Re-authorize or contact COROS support. |
+| 5036 | `SDK_ERROR_CODE_SERVER_USER_DENIED` | User denied authorization in COROS App. | Respect the user choice and retry authorization when appropriate. |
+| 5037 | `SDK_ERROR_CODE_SERVER_INVALID_GRANT` | Grant is invalid. | Re-authorize. |
+| 5038 | `SDK_ERROR_CODE_SERVER_GRANT_REVOKED` | Grant was revoked. | Re-authorize. |
+| 9015 | `SDK_ERROR_CODE_SERVER_DEVICE_NOT_EXIST` | Server considers the device nonexistent. | Check user device binding state and re-authorize if needed. |
 
 ## 12. Logs
 

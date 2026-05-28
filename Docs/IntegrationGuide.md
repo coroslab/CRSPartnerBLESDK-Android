@@ -252,20 +252,46 @@ try {
 }
 ```
 
-常见处理方式：
+完整错误码如下：
 
-| Code | 含义 | 建议处理 |
-| --- | --- | --- |
-| `SDK_ERROR_CODE_INVALID_ARGUMENT` | SDK 入参非法。 | 检查 `clientId`、`partnerUserId`、回调 URL 或 `sportStartTimeInSec`。 |
-| `SDK_ERROR_CODE_NOT_INITIALIZED` | 尚未初始化 SDK。 | 先调用 `initialize()`。 |
-| `SDK_ERROR_CODE_NOT_AUTHORIZED` | 授权缺失或不可用。 | 重新发起授权。 |
-| `SDK_ERROR_CODE_DEVICE_NOT_READY` | 授权设备未就绪。 | 调用 `listAuthorizedDevices()`，引导用户检查 COROS App 和设备连接。 |
-| `SDK_ERROR_CODE_BLUETOOTH_POWERED_OFF` | 系统蓝牙关闭。 | 引导用户开启蓝牙。 |
-| `SDK_ERROR_CODE_BLUETOOTH_UNAUTHORIZED` | 蓝牙权限不可用。 | 引导用户授予蓝牙权限。 |
-| `SDK_ERROR_CODE_REBIND_REQUIRED` | COROS App BLE bridge 或设备绑定状态需要恢复。 | 引导用户打开 COROS App 检查设备状态。 |
-| `SDK_ERROR_CODE_COMMAND_CHANNEL_AUTH_FAILED` | 命令通道鉴权失败。 | 重新授权后重试。 |
-| `SDK_ERROR_CODE_WATCH_USER_EXIT_LOCKED` | 手表端已退出当前会话。 | 使用新的 `sportStartTimeInSec` 重新开始。 |
-| `SDK_ERROR_CODE_SERVER_*` | 服务端错误或 partner 配置异常。 | 检查 partner 配置，必要时重试，并向 COROS 支持提供 `traceId`。 |
+| Value | Code | 含义 | 建议处理 |
+| --- | --- | --- | --- |
+| 0 | `SDK_ERROR_CODE_OK` | 成功。 | 无需处理。 |
+| 1 | `SDK_ERROR_CODE_INVALID_ARGUMENT` | SDK 入参非法，例如 `clientId` 为空、回调 URL 无效或 `sportStartTimeInSec` 非法。 | 检查调用参数。 |
+| 2 | `SDK_ERROR_CODE_NOT_AUTHORIZED` | 授权缺失、本地授权不可用或授权已失效。 | 重新调用 `authorize()` 并完成授权。 |
+| 3 | `SDK_ERROR_CODE_DEVICE_NOT_READY` | 授权设备未就绪，例如设备数量不满足心率广播要求。 | 调用 `listAuthorizedDevices()` 检查设备状态，并引导用户检查 COROS App 和设备连接。 |
+| 4 | `SDK_ERROR_CODE_COMMAND_TIMEOUT` | 命令执行超时。 | 稍后重试，并检查 COROS App 和设备连接。 |
+| 5 | `SDK_ERROR_CODE_ACK_TIMEOUT` | 等待手表 ACK 超时。 | 稍后重试，并检查设备是否保持连接。 |
+| 6 | `SDK_ERROR_CODE_STREAM_INTERRUPTED` | BLE bridge、Binder 或心率数据流中断。 | 检查 COROS App 和设备连接，必要时重新开始心率广播。 |
+| 7 | `SDK_ERROR_CODE_REBIND_REQUIRED` | COROS App BLE bridge 不可用，或设备需要回到 COROS App 恢复连接/重新绑定。 | 引导用户打开 COROS App 检查登录、绑定和设备连接状态。 |
+| 8 | `SDK_ERROR_CODE_PERMISSION_REVOKED` | 本地授权缓存不可用，可能是系统密钥变化或权限状态变化。 | 清理授权态后重新授权。 |
+| 9 | `SDK_ERROR_CODE_INVALID_PAYLOAD` | 本地 payload 编解码失败，或 COROS App 返回数据格式不符合预期。 | 记录日志和 `traceId`，联系 COROS 排查。 |
+| 10 | `SDK_ERROR_CODE_ENVIRONMENT_MISMATCH` | 当前 SDK 环境与 deeplink 或授权 payload 环境不一致。 | 确认 `Environment` 与 partner 服务端配置一致。 |
+| 11 | `SDK_ERROR_CODE_BLUETOOTH_POWERED_OFF` | 系统蓝牙关闭。 | 引导用户开启蓝牙。 |
+| 12 | `SDK_ERROR_CODE_BLUETOOTH_UNAUTHORIZED` | 系统蓝牙权限未授权。 | 引导用户授予蓝牙权限。 |
+| 53 | `SDK_ERROR_CODE_WATCH_USER_EXIT_LOCKED` | 手表端已主动退出当前会话，同一 `sportStartTimeInSec` 不可再次拉起。 | 生成新的运动开始时间后再开始心率广播。 |
+| 54 | `SDK_ERROR_CODE_COMMAND_CHANNEL_AUTH_FAILED` | 命令通道鉴权失败。 | 重新授权后再重试。 |
+| 999 | `SDK_ERROR_CODE_INTERNAL_ERROR` | SDK 本地未知错误。 | 收集日志、`traceId` 和复现步骤，联系 COROS 排查。 |
+| 1000 | `SDK_ERROR_CODE_NOT_INITIALIZED` | 尚未调用 `initialize()`。 | 先完成 SDK 初始化。 |
+| 1001 | `SDK_ERROR_CODE_SERVER_ERROR` | 服务端内部错误。 | 稍后重试，持续失败时联系 COROS。 |
+| 1019 | `SDK_ERROR_CODE_SERVER_LOGIN_INVALID` | COROS App 登录态无效或缺失。 | 引导用户登录 COROS App 后重试。 |
+| 1031 | `SDK_ERROR_CODE_SERVER_INVALID_PARAMETER` | 服务端认为请求参数非法或枚举值不支持。 | 检查 partner 配置和请求参数。 |
+| 1037 | `SDK_ERROR_CODE_SERVER_NO_DATA` | 服务端无可用数据。 | 检查授权、设备和 partner 配置。 |
+| 1042 | `SDK_ERROR_CODE_SERVER_RATE_LIMITED` | 服务端限流。 | 降低请求频率后重试。 |
+| 1047 | `SDK_ERROR_CODE_SERVER_INVALID_CONTENT` | 服务端返回内容无效或不完整。 | 重新授权或联系 COROS 排查。 |
+| 5002 | `SDK_ERROR_CODE_SERVER_INVALID_CLIENT` | `clientId` 无效或未注册。 | 确认 COROS 分配的 `clientId` 和服务端登记状态。 |
+| 5004 | `SDK_ERROR_CODE_SERVER_INVALID_SCOPE` | 请求的 scope 无效，或该 partner 未开通该 scope。 | 确认 partner scope 配置。 |
+| 5026 | `SDK_ERROR_CODE_SERVER_EXPIRED` | 请求、签名或授权数据已过期。 | 重新发起授权或请求。 |
+| 5030 | `SDK_ERROR_CODE_SERVER_INVALID_SIGNATURE` | 签名校验失败，包含 partner 签名或 COROS App 签名不匹配。 | 检查包名、签名证书和服务端登记信息。 |
+| 5031 | `SDK_ERROR_CODE_SERVER_KEY_UNAVAILABLE` | 服务端密钥不可用。 | 稍后重试或联系 COROS。 |
+| 5032 | `SDK_ERROR_CODE_SERVER_EXPIRED_KEY` | 服务端密钥已过期。 | 重新授权，仍失败时联系 COROS。 |
+| 5033 | `SDK_ERROR_CODE_SERVER_UNAUTHORIZED_DEVICE` | 设备未被授权给当前 partner/user。 | 重新授权并确认用户选择的设备。 |
+| 5034 | `SDK_ERROR_CODE_SERVER_DEVICE_DISCONNECTED` | 服务端判断设备未连接。 | 引导用户检查 COROS App 内设备连接。 |
+| 5035 | `SDK_ERROR_CODE_SERVER_INVALID_AUTHORIZED_DEVICES` | 服务端返回的授权设备列表无效。 | 重新授权或联系 COROS 排查。 |
+| 5036 | `SDK_ERROR_CODE_SERVER_USER_DENIED` | 用户在 COROS App 中拒绝授权。 | 尊重用户选择，可在合适时机重新发起授权。 |
+| 5037 | `SDK_ERROR_CODE_SERVER_INVALID_GRANT` | grant 无效。 | 重新授权。 |
+| 5038 | `SDK_ERROR_CODE_SERVER_GRANT_REVOKED` | grant 已被撤销。 | 重新授权。 |
+| 9015 | `SDK_ERROR_CODE_SERVER_DEVICE_NOT_EXIST` | 服务端认为设备不存在。 | 检查用户设备绑定状态，必要时重新授权。 |
 
 ## 12. 日志
 
