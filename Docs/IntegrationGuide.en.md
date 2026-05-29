@@ -8,7 +8,7 @@ This guide is for Android partner app integration. It covers the public SDK APIs
 
 ### 1.1 Requirements
 
-- Android API 24 or later.
+- Android API 23 or later. The SDK encrypts the local authorization cache with Android Keystore `KeyGenParameterSpec` + AES/GCM, which requires API 23 or later.
 - The user must have COROS App installed and signed in.
 - The target COROS device must be authorized and remain connectable by COROS App.
 - The SDK currently supports the COROS App package `com.yf.smart.coros.dist`.
@@ -35,23 +35,19 @@ Changing `partnerUserId` means the partner app login user has changed. Reinitial
 
 ### 2.1 Gradle Repository
 
-Add the COROS Maven repository in `settings.gradle`:
+Confirm Maven Central is enabled in `settings.gradle`:
 
 ```gradle
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven {
-            allowInsecureProtocol = true
-            url = uri("http://192.168.29.237/nexus/repository/coros/")
-        }
         google()
         mavenCentral()
     }
 }
 ```
 
-If your project uses the legacy repository style, add the same Maven repository in the root `build.gradle` `allprojects.repositories` block.
+If your project uses the legacy repository style, confirm Maven Central is enabled in the root `build.gradle` `allprojects.repositories` block.
 
 ### 2.2 SDK Dependency
 
@@ -59,9 +55,11 @@ Add the SDK AAR dependency in your app module:
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.2"
 }
 ```
+
+The SDK uses protobuf-generated classes for BLE protocol encoding and decoding. The Maven Central POM brings the `com.google.protobuf:protobuf-java` runtime dependency transitively.
 
 ### 2.3 Callback Deeplink
 

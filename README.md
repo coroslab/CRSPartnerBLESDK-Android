@@ -6,22 +6,19 @@ CRSPartnerBLESDK is the COROS Partner BLE SDK for Android apps. It lets partner 
 
 ## Requirements
 
-- Android API 24 or later.
+- Android API 23 or later. The SDK encrypts the local authorization cache with Android Keystore `KeyGenParameterSpec` + AES/GCM, which requires API 23 or later.
 - Kotlin or Java Android project.
 - COROS App installed, signed in, and connected to the target COROS device.
 - COROS Open Platform `clientId`, Android package/signature registration, and callback URI registration.
 
 ## Gradle
 
-Add the COROS Maven repository:
+Confirm Maven Central is enabled:
 
 ```gradle
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven {
-            allowInsecureProtocol = true
-            url = uri("http://192.168.29.237/nexus/repository/coros/")
-        }
         google()
         mavenCentral()
     }
@@ -32,9 +29,11 @@ Add the SDK dependency in your app module:
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.2"
 }
 ```
+
+The SDK uses protobuf-generated classes for BLE protocol encoding and decoding. The Maven Central POM brings the `com.google.protobuf:protobuf-java` runtime dependency transitively.
 
 ## Basic Usage
 
@@ -101,4 +100,4 @@ The demo uses the sample package `com.coros.partner.app` and callback URI `crspa
 
 ## Version
 
-Current version: `0.1.1`.
+Current version: `0.1.2`.

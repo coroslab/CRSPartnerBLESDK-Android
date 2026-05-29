@@ -9,13 +9,6 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven {
-            allowInsecureProtocol = true
-            url = uri("http://192.168.29.237/nexus/repository/coros/")
-            content {
-                includeGroupByRegex "com\\.coros\\.partner"
-            }
-        }
         google()
         mavenCentral()
     }

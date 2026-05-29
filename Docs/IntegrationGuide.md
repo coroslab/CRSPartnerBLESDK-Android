@@ -8,7 +8,7 @@
 
 ### 1.1 要求
 
-- Android API 24 或更高版本。
+- Android API 23 或更高版本。SDK 本地授权缓存使用 Android Keystore `KeyGenParameterSpec` + AES/GCM 加密能力，该能力要求 API 23 及以上。
 - 用户已安装并登录 COROS App。
 - 目标 COROS 设备已授权，并能被 COROS App 保持连接。
 - SDK 当前支持的 COROS App 包名：`com.yf.smart.coros.dist`。
@@ -35,23 +35,19 @@ SDK manifest 会自动合并 `android.permission.INTERNET`。
 
 ### 2.1 Gradle 仓库
 
-在 `settings.gradle` 中添加 COROS Maven 仓库：
+在 `settings.gradle` 中确认已启用 Maven Central：
 
 ```gradle
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven {
-            allowInsecureProtocol = true
-            url = uri("http://192.168.29.237/nexus/repository/coros/")
-        }
         google()
         mavenCentral()
     }
 }
 ```
 
-如果项目仍使用旧版仓库配置，也可以把相同 Maven 仓库添加到根目录 `build.gradle` 的 `allprojects.repositories`。
+如果项目仍使用旧版仓库配置，也可以在根目录 `build.gradle` 的 `allprojects.repositories` 中确认已启用 Maven Central。
 
 ### 2.2 SDK 依赖
 
@@ -59,9 +55,11 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.2"
 }
 ```
+
+SDK 使用 protobuf 生成类处理 BLE 协议编解码，Maven Central 发布 POM 会自动传递 `com.google.protobuf:protobuf-java` 运行时依赖。
 
 ### 2.3 回调 Deeplink
 

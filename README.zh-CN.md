@@ -6,22 +6,19 @@ CRSPartnerBLESDK 是 COROS Partner BLE Android SDK，用于第三方 App 接入 
 
 ## 要求
 
-- Android API 24 或更高版本。
+- Android API 23 或更高版本。SDK 本地授权缓存使用 Android Keystore `KeyGenParameterSpec` + AES/GCM 加密能力，该能力要求 API 23 及以上。
 - Kotlin 或 Java Android 项目。
 - 用户已安装并登录 COROS App，目标 COROS 设备可由 COROS App 连接。
 - 已在 COROS Open Platform 登记 `clientId`、Android 包名/签名和回调 URI。
 
 ## Gradle
 
-添加 COROS Maven 仓库：
+确认已启用 Maven Central：
 
 ```gradle
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven {
-            allowInsecureProtocol = true
-            url = uri("http://192.168.29.237/nexus/repository/coros/")
-        }
         google()
         mavenCentral()
     }
@@ -32,9 +29,11 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.1"
+    implementation "com.coros.partner:crs-partner-ble-sdk:0.1.2"
 }
 ```
+
+SDK 使用 protobuf 生成类处理 BLE 协议编解码，Maven Central 发布 POM 会自动传递 `com.google.protobuf:protobuf-java` 运行时依赖。
 
 ## 基础用法
 
@@ -101,4 +100,4 @@ Demo 使用示例包名 `com.coros.partner.app` 和回调 URI `crspartnerbledemo
 
 ## 版本
 
-当前版本：`0.1.1`。
+当前版本：`0.1.2`。
